@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { DocumentDuplicateIcon } from '@heroicons/react/24/solid';
 
 export default function Home({ count }) {
-    const [data, setData] = useState({ url: 'https://google.com' });
+    const [data, setData] = useState({ url: '' });
     const [shortUrl, setShortUrl] = useState(null);
     const [copied, setCopied] = useState(false);
     const [processing, setProcessing] = useState(false);
@@ -58,10 +58,10 @@ export default function Home({ count }) {
             <Head title="Create short links" />
 
             <div>
-                <div className="mx-auto py-[50px] px-[100px] mt-10 bg-white rounded-lg shadow-md">
-                    <h2 className="text-xl font-semibold text-center mb-2">Shorten Your URL</h2>
-                    <p className="text-center text-gray-400 mb-4">Total URLs shortened: {count}</p>
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="mx-auto py-[50px] px-[50px] w-[600px] text-center bg-white bg-opacity-25 rounded-lg shadow-md">
+                    <h2 className="text-xl font-semibold text-center mb-2">Enter a URL to shorten</h2>
+                    <p className="text-center text-black mb-4">Total URLs shortened: {count}</p>
+                    <form onSubmit={handleSubmit} className="space-y-4 w-full text-center">
                         <input
                             autoFocus={true}
                             type="url"
@@ -71,13 +71,13 @@ export default function Home({ count }) {
                             value={data.url}
                             onChange={(e) => setData({ ...data, url: e.target.value })}
                             required
-                            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
+                            className="w-full p-2 border-0 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-center bg-white bg-opacity-25"
                         />
                         {errors.url && <p className="text-red-500 text-sm">{errors.url}</p>}
                         <button
                             type="submit"
                             disabled={processing}
-                            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition disabled:opacity-50"
+                            className="px-5 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition disabled:opacity-50"
                         >
                             {processing ? 'Shortening...' : 'Shorten'}
                         </button>
@@ -85,8 +85,9 @@ export default function Home({ count }) {
                 </div>
 
                 {shortUrl && (
-                    <div className="mx-auto py-[30px] px-[50px] mt-10 bg-white rounded-lg shadow-md flex items-center space-x-4">
-                        <a href={shortUrl} target="_blank" rel="noopener noreferrer" className=" flex-1 text-blue-500 bg-gray-50 px-5  py-2 rounded-md break-all truncate">
+                    <div className="mx-auto py-[30px] px-[50px] mt-10 bg-white rounded-lg shadow-md flex items-center space-x-4 bg-opacity-25">
+                        <p>Your short URL</p>
+                        <a href={shortUrl} target="_blank" rel="noopener noreferrer" className=" flex-1 text-blue-500 bg-gray-50 bg-opacity-25 px-5 py-2 rounded-md break-all truncate">
                             {shortUrl}
                         </a>
                         <button
