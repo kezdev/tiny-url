@@ -3,7 +3,7 @@ export default function Layout({ children, count }) {
         <div className={'p-[100px]'}>
             <nav>
                 <h1 className="text-center text-5xl font-bold pb-[10px] opacity-50">Tiny URL</h1>
-                <h3 className={'text-center text-xl pb-[50px] opacity-50'}>Shorten any URL with ease</h3>
+                <h3 className={'text-center text-xl pb-[50px] opacity-50'}>Shortened {count} URLs so far 🚀</h3>
             </nav>
             <main className="flex justify-center">
                 {children}
