@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+    background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/funky-lines.png");
+    background-repeat: repeat;
+}

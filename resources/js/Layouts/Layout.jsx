@@ -1,19 +1,12 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
-
 export default function Layout({ children }) {
-
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="border-b border-gray-100 bg-white">
-                nav
+        <div>
+            <nav className={'absolute top-0 left-0 w-full p-[50px] bg-white shadow-md'}>
+                <h1 className="text-center text-4xl font-bold">Tiny URL</h1>
             </nav>
-
-            <main>{children}</main>
+            <main className="min-h-screen flex items-center justify-center">
+                {children}
+            </main>
         </div>
     );
 }
