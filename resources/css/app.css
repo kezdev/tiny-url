@@ -8,14 +8,9 @@
     font-family: 'Rubik', sans-serif !important;
 }
 
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
 body {
-    background: linear-gradient(45deg, #051937, #004d7a, #008793, #00bf72, #a8eb12);
-    background-size: 300% 300%;
-    animation: gradientAnimation 30s ease infinite;
+    background-image:
+        url("https://www.toptal.com/designers/subtlepatterns/uploads/grey.png"),
+        linear-gradient(rgba(117, 117, 117, 0.5), rgba(41, 43, 47, 0.8));
+    background-blend-mode: overlay;
 }

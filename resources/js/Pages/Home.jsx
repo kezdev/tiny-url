@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { DocumentDuplicateIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
+import toast from 'react-hot-toast';
 
 export default function Home({ count }) {
     const [data, setData] = useState({ url: '' });
@@ -11,10 +12,13 @@ export default function Home({ count }) {
     const [processing, setProcessing] = useState(false);
     const [errors, setErrors] = useState({ url: null });
 
+    const [_count, setCount] = useState(count);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setProcessing(true);
         setErrors({ url: null });
+        setShortUrl(null);
 
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
 
@@ -34,6 +38,7 @@ export default function Home({ count }) {
                 setShortUrl(result.short_url);
                 setCopied(false);
                 setData({ url: '' });
+                setCount(_count + 1);
             } else {
                 setErrors(result.errors || {});
             }
@@ -48,6 +53,14 @@ export default function Home({ count }) {
         if (shortUrl) {
             navigator.clipboard.writeText(shortUrl).then(() => {
                 setCopied(true);
+                toast('Copied to clipboard!', {
+                    icon: '📋',
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                });
                 setTimeout(() => setCopied(false), 2000);
             });
         }
@@ -60,7 +73,7 @@ export default function Home({ count }) {
     }
 
     return (
-        <Layout count={count}>
+        <Layout count={_count}>
             <Head title="Create short links" />
             <div>
                 <motion.div
@@ -75,11 +88,11 @@ export default function Home({ count }) {
                             type="url"
                             name="url"
                             id="url"
-                            placeholder="Enter your URL"
+                            placeholder="Enter your long link here.."
                             value={data.url}
                             onChange={(e) => setData({ ...data, url: e.target.value })}
                             required
-                            className="w-full p-2 border-0 rounded-md focus:outline-none text-center bg-white bg-opacity-25"
+                            className="w-full p-2 border-0 rounded-lg focus:outline-none text-center bg-white bg-opacity-25"
                         />
                         {errors.url && <p className="text-red-500 text-sm">{errors.url}</p>}
                         <motion.button
@@ -87,7 +100,7 @@ export default function Home({ count }) {
                             whileTap={{ scale: 0.95 }}
                             type="submit"
                             disabled={processing}
-                            className="ml-4 px-5 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition disabled:opacity-50"
+                            className="ml-4 px-5 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
                         >
                             {processing ? 'Shortening...' : 'Shorten'}
                         </motion.button>
@@ -96,30 +109,30 @@ export default function Home({ count }) {
 
                 {shortUrl && (
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.5}}
                         className="mx-auto py-[30px] px-[50px] mt-10 bg-white rounded-lg shadow-md flex items-center space-x-4 bg-opacity-25"
                     >
+                        <p className="flex-1 bg-gray-50 bg-opacity-25 px-5 py-2 rounded-lg break-all truncate text-center">
+                            {shortUrl}
+                        </p>
                         <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
+                            whileHover={{scale: 1.1}}
+                            whileTap={{scale: 0.9}}
                             onClick={copyToClipboard}
-                            className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition bg-opacity-25"
+                            className="p-2 bg-gray-50 rounded-lg hover:bg-white transition bg-opacity-25"
                         >
                             <DocumentDuplicateIcon className="w-5 h-5 text-gray-600"/>
                         </motion.button>
                         <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
+                            whileHover={{scale: 1.1}}
+                            whileTap={{scale: 0.9}}
                             onClick={navigateToShortUrl}
-                            className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition bg-opacity-25"
+                            className="p-2 bg-gray-50 rounded-lg hover:bg-white transition bg-opacity-25"
                         >
                             <ArrowTopRightOnSquareIcon className="w-5 h-5 text-gray-600"/>
                         </motion.button>
-                        <p className="flex-1 bg-gray-50 bg-opacity-25 px-5 py-2 rounded-md break-all truncate text-center">
-                            {shortUrl}
-                        </p>
                     </motion.div>
                 )}
             </div>
