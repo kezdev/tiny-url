@@ -1,7 +1,10 @@
 # URL Shortener 🌐✂️
 
-A user-friendly URL shortening service built with **Laravel** and **React**
+A user-friendly URL shortening service built with **Laravel** and **React**.
 
+
+## 🚀 Demo
+You can access the live demo [here](https://qlpcq.nimsite.uk/).
 
 ## 🛠️ Tech Stack
 
